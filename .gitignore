@@ -1,0 +1,9 @@
+node_modules
+dist
+.env
+.vercel
+data/*.json
+*.tsbuildinfo
+.DS_Store
+.env*.local
+.claude
