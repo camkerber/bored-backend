@@ -1,11 +1,30 @@
 import { Request, Response, NextFunction } from "express";
 import { MongoError } from "mongodb";
+import { ZodError } from "zod";
 import { SuccessResponse, ErrorResponse } from "../types/index.js";
 
 export class ValidationError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "ValidationError";
+  }
+}
+
+export class HttpError extends Error {
+  statusCode: number;
+  code: string;
+  details?: unknown;
+  constructor(
+    statusCode: number,
+    code: string,
+    message: string,
+    details?: unknown,
+  ) {
+    super(message);
+    this.name = "HttpError";
+    this.statusCode = statusCode;
+    this.code = code;
+    this.details = details;
   }
 }
 
@@ -76,6 +95,24 @@ function parseErrorDetails(err: Error): {
           statusCode: 500,
         };
     }
+  }
+
+  if (err instanceof HttpError) {
+    return {
+      message: err.message,
+      code: err.code,
+      details: err.details,
+      statusCode: err.statusCode,
+    };
+  }
+
+  if (err instanceof ZodError) {
+    return {
+      message: "Request body validation failed",
+      code: "VALIDATION_ERROR",
+      details: err.issues,
+      statusCode: 400,
+    };
   }
 
   if (err.name === "ValidationError") {
