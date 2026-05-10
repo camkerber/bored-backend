@@ -9,6 +9,6 @@
     { "source": "/api/(.*)", "destination": "/api/index.ts" }
   ],
   "crons": [
-    { "path": "/api/watcher/cron/cleanup", "schedule": "0 */2 * * *" }
+    { "path": "/api/watcher/cron/cleanup", "schedule": "0 0 * * *" }
   ]
 }
