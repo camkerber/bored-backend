@@ -4,7 +4,7 @@ import {
   createErrorResponse,
   createSuccessResponse,
 } from "../utils/errorHandler.js";
-import { WordleDictionary } from "../types/index.js";
+import { WordleDictionary } from "../types/wordle.js";
 
 export async function getWordleDictionary(
   _req: Request,

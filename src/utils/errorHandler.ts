@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { MongoError } from "mongodb";
 import { ZodError } from "zod";
-import { SuccessResponse, ErrorResponse } from "../types/index.js";
+import { SuccessResponse, ErrorResponse } from "../types/apiResponse.js";
 
 export class ValidationError extends Error {
   constructor(message: string) {

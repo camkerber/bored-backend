@@ -399,10 +399,7 @@ export async function getMatches(sessionId: string): Promise<string[]> {
       "Session not found",
     );
   }
-  if (
-    !doc.participants.p1.swipesDone ||
-    !doc.participants.p2.swipesDone
-  ) {
+  if (!doc.participants.p1.swipesDone || !doc.participants.p2.swipesDone) {
     throw new WatcherSessionError(
       409,
       "SWIPES_NOT_DONE",
@@ -426,10 +423,7 @@ export async function rematch(
       "Session not found",
     );
   }
-  if (
-    !doc.participants.p1.swipesDone ||
-    !doc.participants.p2.swipesDone
-  ) {
+  if (!doc.participants.p1.swipesDone || !doc.participants.p2.swipesDone) {
     throw new WatcherSessionError(
       409,
       "SWIPES_NOT_DONE",
@@ -481,7 +475,9 @@ export async function rematch(
 
 export async function cleanupExpiredSessions(): Promise<{ deleted: number }> {
   const collection = getCollection<WatcherSessionDoc>(COLLECTION);
-  const result = await collection.deleteMany({ expiresAt: { $lte: new Date() } });
+  const result = await collection.deleteMany({
+    expiresAt: { $lte: new Date() },
+  });
   return { deleted: result.deletedCount ?? 0 };
 }
 

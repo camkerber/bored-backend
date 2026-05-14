@@ -5,7 +5,7 @@ import {
   createErrorResponse,
   createSuccessResponse,
 } from "../utils/errorHandler.js";
-import { Game } from "../types/index.js";
+import { Game } from "../types/connections.js";
 
 function isGame(value: unknown): value is Game {
   return (
